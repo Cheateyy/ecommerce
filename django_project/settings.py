@@ -9,7 +9,9 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
+import dj_database_url
+from pathlib import Path
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,6 +31,8 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '1d0c3a407acd.ngrok-free.app',  # Add your current ngrok domain here
+    'ecommerce-7vtp64g3y-khalils-projects-462d2e00.vercel.app',
+
 ]
 
 
@@ -87,18 +91,14 @@ TEMPLATES = [
 WSGI_APPLICATION = "django_project.wsgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_db',
-        'USER': 'django_user',
-        'PASSWORD': 'django_password',
-        'HOST': 'localhost',
-        'PORT': '3307',
-    }
+    'default': dj_database_url.config(
+        # Fallback for local development:
+        default='postgresql://django_user:django_password@localhost:3307/django_db',
+        conn_max_age=600,
+        ssl_require=True      # enforce SSL in production
+    )
 }
 
 
