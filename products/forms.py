@@ -7,6 +7,9 @@ class CheckoutForm(forms.ModelForm):
         fields = ['address']      # Add more fields if needed (e.g., 'notes', 'phone') 
         
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         self.fields['address'].required = True
+        if user is not None:
+            self.fields['address'].queryset = user.addresses.all()
         

@@ -20,7 +20,7 @@
     {% for product in featured_products %}
       <div class="min-w-[220px] max-w-[260px] bg-white rounded-xl shadow flex-shrink-0 flex flex-col items-center p-4">
         {% if product.image %}
-          <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-60 object-cover rounded-lg mb-3" />
+          <img src="{{ product.image }}" alt="{{ product.name }}" class="w-full h-60 object-cover rounded-lg mb-3" />
         {% else %}
           <img src="{% static 'img/placeholder.png' %}" alt="No image" class="w-full h-60 object-cover rounded-lg mb-3" />
         {% endif %}
@@ -40,7 +40,7 @@
     {% for category in categories %}
       <div class="flex flex-col items-center bg-white border border-[#e5dcdc] rounded-xl p-4">
         {% if category.image %}
-          <img src="{{ category.image.url }}" alt="{{ category.name }}" class="w-16 h-16 object-cover rounded-full mb-2" />
+          <img src="{{ category.image }}" alt="{{ category.name }}" class="w-16 h-16 object-cover rounded-full mb-2" />
         {% else %}
           <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-2">
             <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>

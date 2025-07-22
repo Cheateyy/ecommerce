@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.contrib import messages
 from products.models import Category, Product
+from django.http import JsonResponse
+from django.conf import settings
 
 # Create your views here.
 def home(request):
@@ -31,3 +33,6 @@ def shop(request):
     """Shop page - will redirect to products listing"""
     # TODO: Redirect to products app when created
     return render(request, "core/shop.html")
+
+def debug_db(request):
+    return JsonResponse(settings.DATABASES)

@@ -192,7 +192,7 @@ def checkout(request):
     """Process the checkout"""
     cart = request.session.get('cart', {})
     if request.method == 'POST':
-        form = CheckoutForm(request.POST)
+        form = CheckoutForm(request.POST, user=request.user)
         if form.is_valid():
             address = form.cleaned_data.get('address')
             if not address:
@@ -256,7 +256,7 @@ def checkout(request):
                 request.session['cart'] = {}
                 return redirect('checkout_success', order_id=order.id)
     else:
-        form = CheckoutForm()
+        form = CheckoutForm(user=request.user)
     # Rebuild cart_items and total for GET or invalid POST
     cart_items = []
     total = 0
