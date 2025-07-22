@@ -13,7 +13,8 @@ import os
 import dj_database_url
 from pathlib import Path
 from pathlib import Path
-
+from dotenv import load_dotenv
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -95,10 +96,9 @@ WSGI_APPLICATION = "django_project.wsgi.application"
 
 DATABASES = {
     'default': dj_database_url.config(
-        # Fallback for local development:
-        default='postgresql://django_user:django_password@localhost:3307/django_db',
+        default=os.getenv('DATABASE_URL'),
         conn_max_age=600,
-        ssl_require=True      # enforce SSL in production
+        ssl_require=True
     )
 }
 
