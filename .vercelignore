@@ -1,0 +1,9 @@
+*.db
+*.sqlite3
+*.pyc
+__pycache__/
+.env
+.dockerignore
+.gitignore
+venv/
+django_venv/
