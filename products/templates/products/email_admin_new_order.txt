@@ -1,0 +1,16 @@
+A new order has been placed!
+
+Order Number: {{ order.id }}
+Order Date: {{ order.created_at|date:"Y-m-d H:i" }}
+User: {{ user.username }} ({{ user.email }})
+Total: ${{ order.total }}
+
+Shipping Address:
+{{ order.address }}
+
+Items:
+{% for product, quantity in cart_items %}
+- {{ product.name }} (x{{ quantity }}) - ${{ product.price }}
+{% endfor %}
+
+Check the admin panel for more details.

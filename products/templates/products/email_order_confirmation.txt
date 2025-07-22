@@ -1,0 +1,20 @@
+Hello {{ user.username }},
+
+Thank you for your order at {{ order.created_at|date:"Y-m-d H:i" }}!
+
+Order Number: {{ order.id }}
+Order Date: {{ order.created_at|date:"Y-m-d H:i" }}
+Total: ${{ order.total }}
+
+Shipping Address:
+{{ order.address }}
+
+Items:
+{% for product, quantity in cart_items %}
+- {{ product.name }} (x{{ quantity }}) - ${{ product.price }}
+{% endfor %}
+
+We will notify you when your order ships.
+
+Best regards,
+Your Shop Team 

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Order History – Fashion Forward{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 py-10">
+  <h1 class="text-3xl font-bold mb-6">Order History</h1>
+  {% if orders %}
+    <div class="flex flex-col gap-6">
+      {% for order in orders %}
+        <div class="bg-white rounded-xl shadow p-6">
+          <div class="mb-2"><span class="font-semibold">Order #:</span> {{ order.id }}</div>
+          <div class="mb-2"><span class="font-semibold">Date:</span> {{ order.created_at|date:"Y-m-d H:i" }}</div>
+          <div class="mb-2"><span class="font-semibold">Total:</span> ${{ order.total }}</div>
+          <div class="mb-2"><span class="font-semibold">Status:</span> {{ order.status|capfirst }}</div>
+          <div class="mb-2"><span class="font-semibold">Shipping Address:</span> {{ order.address }}</div>
+          <div class="mt-4">
+            <span class="font-semibold">Items:</span>
+            <ul class="list-disc list-inside ml-4">
+              {% for item in order.items.all %}
+                <li>{{ item.product.name }} (x{{ item.quantity }}) - ${{ item.price }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="text-gray-500">You have no orders yet.</div>
+  {% endif %}
+</div>
+{% endblock %} 

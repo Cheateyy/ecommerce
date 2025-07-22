@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home – Fashion Forward{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+  <!-- Hero Section -->
+  <div class="rounded-2xl overflow-hidden mb-10" style="background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;">
+    <div class="p-10 md:p-16 flex flex-col justify-center min-h-[280px]">
+      <h1 class="text-white text-3xl md:text-5xl font-black mb-2">Elevate Your Style</h1>
+      <p class="text-white text-lg md:text-xl mb-4">Discover the latest trends and timeless classics in our curated collection.</p>
+      <a href="{% url 'product_list' %}" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg text-base md:text-lg w-max">Shop Now</a>
+    </div>
+  </div>
+
+  <!-- Featured Products -->
+  <h2 class="text-[#181111] text-2xl font-bold mb-4">Featured Products</h2>
+  <div class="flex space-x-6 overflow-x-auto pb-4 mb-10 hide-scrollbar">
+    {% for product in featured_products %}
+      <div class="min-w-[220px] max-w-[260px] bg-white rounded-xl shadow flex-shrink-0 flex flex-col items-center p-4">
+        {% if product.image %}
+          <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-60 object-cover rounded-lg mb-3" />
+        {% else %}
+          <img src="{% static 'img/placeholder.png' %}" alt="No image" class="w-full h-60 object-cover rounded-lg mb-3" />
+        {% endif %}
+        <div class="text-[#181111] text-base font-medium text-center mb-1">{{ product.name }}</div>
+        <div class="text-gray-500 text-sm text-center mb-2">{{ product.description|truncatewords:10 }}</div>
+        <div class="text-[#181111] font-bold text-lg mb-2">${{ product.price }}</div>
+        <a href="{{ product.get_absolute_url }}" class="inline-block bg-gray-900 hover:bg-gray-700 text-white font-semibold py-1.5 px-4 rounded-lg text-sm">View</a>
+      </div>
+    {% empty %}
+      <div class="text-gray-500">No featured products right now.</div>
+    {% endfor %}
+  </div>
+
+  <!-- Browse Categories -->
+  <h2 class="text-[#181111] text-2xl font-bold mb-4">Browse Categories</h2>
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+    {% for category in categories %}
+      <div class="flex flex-col items-center bg-white border border-[#e5dcdc] rounded-xl p-4">
+        {% if category.image %}
+          <img src="{{ category.image.url }}" alt="{{ category.name }}" class="w-16 h-16 object-cover rounded-full mb-2" />
+        {% else %}
+          <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-2">
+            <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+          </div>
+        {% endif %}
+        <div class="text-[#181111] text-base font-bold mb-1">{{ category.name }}</div>
+        <div class="text-gray-500 text-xs mb-2 text-center">{{ category.description|truncatewords:8 }}</div>
+        <a href="{% url 'category_detail' category.slug %}" class="inline-block bg-gray-100 hover:bg-gray-200 text-gray-900 font-semibold py-1 px-3 rounded text-xs">Shop</a>
+      </div>
+    {% empty %}
+      <div class="text-gray-500">No categories found.</div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+{% endblock %}

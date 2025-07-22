@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Edit Address – Fashion Forward{% endblock %}
+{% block content %}
+<div class="max-w-md mx-auto px-4 py-16">
+  <h1 class="text-3xl font-bold text-center mb-6">Edit Address</h1>
+  {% if messages %}
+    {% for message in messages %}
+      <div class="mb-4 p-3 rounded bg-red-100 text-red-800 text-center">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+  <form method="post" class="bg-white rounded-xl shadow p-6 flex flex-col gap-4">
+    {% csrf_token %}
+    <input type="text" name="first_name" value="{{ address.first_name }}" placeholder="First Name" class="form-input rounded-lg border-gray-300 focus:border-gray-500 focus:ring-0" required />
+    <input type="text" name="last_name" value="{{ address.last_name }}" placeholder="Last Name" class="form-input rounded-lg border-gray-300 focus:border-gray-500 focus:ring-0" required />
+    <input type="text" name="phone" value="{{ address.phone }}" placeholder="Phone" class="form-input rounded-lg border-gray-300 focus:border-gray-500 focus:ring-0" />
+    <input type="text" name="street_address" value="{{ address.street_address }}" placeholder="Street Address" class="form-input rounded-lg border-gray-300 focus:border-gray-500 focus:ring-0" required />
+    <input type="text" name="apartment" value="{{ address.apartment }}" placeholder="Apartment (optional)" class="form-input rounded-lg border-gray-300 focus:border-gray-500 focus:ring-0" />
+    <input type="text" name="city" value="{{ address.city }}" placeholder="City" class="form-input rounded-lg border-gray-300 focus:border-gray-500 focus:ring-0" required />
+    <input type="text" name="zip_code" value="{{ address.zip_code }}" placeholder="ZIP Code" class="form-input rounded-lg border-gray-300 focus:border-gray-500 focus:ring-0" required />
+    <div class="flex gap-4">
+      <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="is_default" class="form-checkbox rounded" {% if address.is_default %}checked{% endif %}/> Default</label>
+      <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="is_billing" class="form-checkbox rounded" {% if address.is_billing %}checked{% endif %}/> Billing</label>
+      <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="is_shipping" class="form-checkbox rounded" {% if address.is_shipping %}checked{% endif %}/> Shipping</label>
+    </div>
+    <button type="submit" class="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg mt-2">Update Address</button>
+  </form>
+</div>
+{% endblock %} 

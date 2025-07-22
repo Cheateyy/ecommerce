@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Products – Fashion Forward{% endblock %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6">All Products</h1>
+  <form method="get" class="flex flex-wrap gap-4 mb-8 items-center">
+    <input type="text" name="search" value="{{ search_query }}" placeholder="Search products..." class="form-input rounded-lg border-gray-300 focus:border-gray-500 focus:ring-0 w-64" />
+    <select name="category" class="form-select rounded-lg border-gray-300 focus:border-gray-500 focus:ring-0">
+      <option value="">All Categories</option>
+      {% for category in categories %}
+        <option value="{{ category.slug }}" {% if current_category == category.slug %}selected{% endif %}>{{ category.name }}</option>
+      {% endfor %}
+    </select>
+    <input type="number" name="min_price" value="{{ min_price }}" placeholder="Min Price" class="form-input rounded-lg border-gray-300 focus:border-gray-500 focus:ring-0 w-28" />
+    <input type="number" name="max_price" value="{{ max_price }}" placeholder="Max Price" class="form-input rounded-lg border-gray-300 focus:border-gray-500 focus:ring-0 w-28" />
+    <select name="sort" class="form-select rounded-lg border-gray-300 focus:border-gray-500 focus:ring-0">
+      <option value="name" {% if sort_by == 'name' %}selected{% endif %}>Name</option>
+      <option value="price_low" {% if sort_by == 'price_low' %}selected{% endif %}>Price: Low to High</option>
+      <option value="price_high" {% if sort_by == 'price_high' %}selected{% endif %}>Price: High to Low</option>
+      <option value="newest" {% if sort_by == 'newest' %}selected{% endif %}>Newest</option>
+    </select>
+    <button type="submit" class="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg">Filter</button>
+  </form>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
+    {% for product in products %}
+      <div class="bg-white rounded-xl shadow p-4 flex flex-col items-center">
+        {% if product.image %}
+          <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-48 object-cover rounded-lg mb-3" />
+        {% else %}
+          <img src="{% static 'img/placeholder.png' %}" alt="No image" class="w-full h-48 object-cover rounded-lg mb-3" />
+        {% endif %}
+        <div class="text-[#181111] text-base font-medium text-center mb-1">{{ product.name }}</div>
+        <div class="text-gray-500 text-sm text-center mb-2">{{ product.description|truncatewords:10 }}</div>
+        <div class="text-[#181111] font-bold text-lg mb-2">${{ product.price }}</div>
+        <a href="{{ product.get_absolute_url }}" class="inline-block bg-gray-900 hover:bg-gray-700 text-white font-semibold py-1.5 px-4 rounded-lg text-sm">View</a>
+      </div>
+    {% empty %}
+      <div class="text-gray-500 col-span-full">No products found.</div>
+    {% endfor %}
+  </div>
+  <div class="flex justify-center">
+    {% if products.has_previous %}
+      <a href="?page={{ products.previous_page_number }}" class="px-3 py-1 rounded bg-gray-100 hover:bg-gray-200 mr-2">Previous</a>
+    {% endif %}
+    <span class="px-3 py-1">Page {{ products.number }} of {{ products.paginator.num_pages }}</span>
+    {% if products.has_next %}
+      <a href="?page={{ products.next_page_number }}" class="px-3 py-1 rounded bg-gray-100 hover:bg-gray-200 ml-2">Next</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %} 

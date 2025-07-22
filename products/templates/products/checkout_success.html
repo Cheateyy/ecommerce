@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Order Success – Fashion Forward{% endblock %}
+{% block content %}
+<div class="max-w-xl mx-auto px-4 py-20 text-center">
+  <div class="mb-8">
+    <svg class="mx-auto w-20 h-20 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#e6f9ec"/><path d="M16 24l8 8 12-12" stroke="#22c55e" stroke-width="3"/></svg>
+  </div>
+  <h1 class="text-3xl font-bold mb-4">Thank you for your order!</h1>
+  {% if order %}
+    <div class="bg-white rounded-xl shadow p-6 mb-6 text-left">
+      <div class="mb-2"><span class="font-semibold">Order #:</span> {{ order.id }}</div>
+      <div class="mb-2"><span class="font-semibold">Total:</span> ${{ order.total }}</div>
+      <div class="mb-2"><span class="font-semibold">Status:</span> {{ order.status|capfirst }}</div>
+      <div class="mb-2"><span class="font-semibold">Shipping Address:</span> {{ order.address }}</div>
+    </div>
+  {% endif %}
+  <a href="{% url 'order_history' %}" class="inline-block bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg">View Order History</a>
+</div>
+{% endblock %} 

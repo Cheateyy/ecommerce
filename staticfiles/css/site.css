@@ -1,0 +1,128 @@
+/* -----------------------------------
+   Global Settings
+----------------------------------- */
+:root {
+  --bs-primary:    #0d6efd;  /* Bootstrap default, override if needed */
+  --bs-secondary:  #6c757d;
+  --bs-success:    #198754;
+  --bs-info:       #0dcaf0;
+  --bs-warning:    #ffc107;
+  --bs-danger:     #dc3545;
+  --bs-light:      #f8f9fa;
+  --bs-dark:       #212529;
+
+  --font-sans:     'Roboto', sans-serif;
+  --font-heading:  'Poppins', sans-serif;
+
+  --spacer:        1rem;
+  --spacer-lg:     2rem;
+}
+
+body {
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  color: #333;
+}
+
+/* -----------------------------------
+   Typography
+----------------------------------- */
+h1, .display-4, .display-5 {
+  font-family: var(--font-heading);
+  margin-bottom: var(--spacer);
+}
+
+h2, h3, h4 {
+  font-family: var(--font-heading);
+  margin-top: var(--spacer-lg);
+  margin-bottom: var(--spacer);
+}
+
+/* -----------------------------------
+   Navbar Overrides
+----------------------------------- */
+.navbar {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nav-link {
+  transition: color 0.2s ease-in-out;
+}
+.nav-link:hover {
+  color: var(--bs-info) !important;
+}
+
+/* -----------------------------------
+   Buttons
+----------------------------------- */
+.btn-primary {
+  border-radius: 2rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+}
+.btn-primary:hover {
+  background-color: var(--bs-primary);
+  opacity: 0.9;
+}
+
+/* -----------------------------------
+   Hero Section
+----------------------------------- */
+.bg-light.rounded-3 {
+  background-image: url('../images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+
+/* -----------------------------------
+   Cards
+----------------------------------- */
+.card {
+  border: none;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* -----------------------------------
+   Footer
+----------------------------------- */
+footer {
+  background-color: var(--bs-dark);
+  color: #bbb;
+}
+footer a {
+  color: #ddd;
+  text-decoration: none;
+}
+footer a:hover {
+  color: white;
+}
+
+/* -----------------------------------
+   Utility Helpers
+----------------------------------- */
+.text-center {
+  text-align: center !important;
+}
+.mt-auto {
+  margin-top: auto !important;
+}
+
+/* -----------------------------------
+   Responsive Tweaks
+----------------------------------- */
+@media (max-width: 767px) {
+  .display-5 {
+    font-size: 2rem;
+  }
+  .card-body h5 {
+    font-size: 1.1rem;
+  }
+}
