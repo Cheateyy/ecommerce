@@ -23,17 +23,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-ws^t2pi(@a_a%@&qx)g2jf+k!e8x&952*!aw6&gaxw*jel_yek"
+SECRET_KEY = os.getenv('SECRET_KEY', "django-insecure-ws^t2pi(@a_a%@&qx)g2jf+k!e8x&952*!aw6&gaxw*jel_yek")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+DEBUG = os.getenv('DEBUG', 'True').lower() in ['true', '1', 'yes']
+
 
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '1d0c3a407acd.ngrok-free.app',  # Optional if not using ngrok anymore
-    'ecommerce-7vtp64g3y-khalils-projects-462d2e00.vercel.app',
-    '.vercel.app',  # Allow subdomains too (wildcard)
+    'ecommerce-lu01y22xy-khalils-projects-462d2e00.vercel.app',
+    '.vercel.app',
 ]
 
 
@@ -148,7 +149,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 #added
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
