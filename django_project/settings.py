@@ -30,10 +30,11 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '1d0c3a407acd.ngrok-free.app',  # Add your current ngrok domain here
+    '1d0c3a407acd.ngrok-free.app',  # Optional if not using ngrok anymore
     'ecommerce-7vtp64g3y-khalils-projects-462d2e00.vercel.app',
-
+    '.vercel.app',  # Allow subdomains too (wildcard)
 ]
+
 
 
 
