@@ -9,6 +9,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.urls import reverse
+from django.db.models import Q
 
 # Create your views here.
 def register(request):
@@ -59,11 +60,17 @@ def register(request):
 
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username_or_email = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
+        user = None
+        # Try to find user by username or email
+        try:
+            user_obj = User.objects.get(Q(username=username_or_email) | Q(email=username_or_email))
+            user = authenticate(request, username=user_obj.username, password=password)
+        except User.DoesNotExist:
+            user = None
         if user is not None:
-            login(request, user)    
+            login(request, user)
             messages.success(request, 'You have been logged in')
             return redirect('core-home')
         else:

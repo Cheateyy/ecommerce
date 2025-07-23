@@ -172,6 +172,9 @@ def cart_add(request, product_id):
         cart[product_id_str] = {'quantity': 1}
 
     request.session['cart'] = cart  # Save cart back to session
+    next_url = request.META.get('HTTP_REFERER', None)
+    if next_url:
+        return redirect(next_url)
     return redirect('cart_detail')
 
 def cart_remove(request, product_id):
@@ -190,6 +193,9 @@ def cart_clear(request):
 
 def checkout(request):
     """Process the checkout"""
+    if not request.user.is_authenticated:
+        messages.error(request, 'You must be logged in to checkout')
+        return redirect('login')
     cart = request.session.get('cart', {})
     if request.method == 'POST':
         form = CheckoutForm(request.POST, user=request.user)
