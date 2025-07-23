@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.core.mail import mail_admins
+from django.contrib import messages
 
 def product_list(request):
     """Display all products with filtering and pagination"""
@@ -172,9 +173,26 @@ def cart_add(request, product_id):
         cart[product_id_str] = {'quantity': 1}
 
     request.session['cart'] = cart  # Save cart back to session
+
+    # Check if the referer is a product detail page
+    referer = request.META.get('HTTP_REFERER', '')
+    product_detail_path = f'/products/{product_id}/'
+    if product_detail_path in referer:
+        from .models import Product
+        product = Product.objects.get(pk=product_id)
+        related_products = Product.objects.filter(
+            category=product.category,
+            available=True
+        ).exclude(pk=product_id)[:4]
+        context = {
+            'product': product,
+            'related_products': related_products,
+            'message': 'Product added to cart!'
+        }
+        return render(request, 'products/product_detail.html', context)
+
     next_url = request.META.get('HTTP_REFERER', None)
     if next_url:
-        messages.success(request,'Product added to cart')
         return redirect(next_url)
     return redirect('cart_detail')
 

@@ -2,6 +2,9 @@
 {% load static %}
 {% block title %}{{ product.name }} – Fashion Forward{% endblock %}
 {% block content %}
+{% if message %}
+  <div class="mb-4 p-3 rounded bg-green-100 text-green-800 text-center">{{ message }}</div>
+{% endif %}
 <div class="max-w-5xl mx-auto px-4 py-10">
   <div class="flex flex-col md:flex-row gap-10 mb-10">
     <div class="flex-1 flex items-center justify-center">
