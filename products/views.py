@@ -174,6 +174,7 @@ def cart_add(request, product_id):
     request.session['cart'] = cart  # Save cart back to session
     next_url = request.META.get('HTTP_REFERER', None)
     if next_url:
+        messages.success(request,'Product added to cart')
         return redirect(next_url)
     return redirect('cart_detail')
 
