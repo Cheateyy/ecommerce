@@ -34,6 +34,10 @@
         <div class="text-gray-500 text-sm text-center mb-2">{{ product.description|truncatewords:10 }}</div>
         <div class="text-[#181111] font-bold text-lg mb-2">${{ product.price }}</div>
         <a href="{{ product.get_absolute_url }}" class="inline-block bg-gray-900 hover:bg-gray-700 text-white font-semibold py-1.5 px-4 rounded-lg text-sm">View</a>
+        <form method="post" action="{% url 'cart_add' product.id %}" style="display:inline; margin-left: 8px;">
+          {% csrf_token %}
+          <button type="submit" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-1.5 px-4 rounded-lg text-sm">Add to Cart</button>
+        </form>
       </div>
     {% empty %}
       <div class="text-gray-500 col-span-full">No products found.</div>

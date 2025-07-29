@@ -10,6 +10,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.urls import reverse
 from django.db.models import Q
+from dotenv import load_dotenv
 
 # Create your views here.
 def register(request):
@@ -50,7 +51,7 @@ def register(request):
                 )
 
                 messages.success(request, 'Your account has been created, please check your email to verify it')
-                return redirect('login')
+                return redirect('core-home')
         else:
             messages.error(request, 'Passwords do not match')
             return redirect('register')
